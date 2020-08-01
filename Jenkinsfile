@@ -3,10 +3,11 @@ import groovy.transform.Field
 import groovy.json.JsonSlurper
 
 node ('Build-Server') 
-{
- environment{
+environment{
       TAG = "${BUILD_ID}"
     }
+{
+ 
       parameters 
     {
            string(name: 'Service_Name', defaultValue: 'account-service', description: 'Which service needs to deploy')
