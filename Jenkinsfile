@@ -4,7 +4,9 @@ import groovy.json.JsonSlurper
 
 node ('Build-Server') 
 {
-
+ environment{
+      TAG = "${BUILD_ID}"
+    }
       parameters 
     {
            string(name: 'Service_Name', defaultValue: 'account-service', description: 'Which service needs to deploy')
@@ -53,7 +55,7 @@ def Create_Image()
 {
     stage('Create_Image') 
     {
-        sh "cd $WORKSPACE/${params.Service_Name} ; sudo docker build --tag=${params.Service_Name} ."
+          sh "cd $WORKSPACE/${params.Service_Name} ; sudo docker build --tag=${params.Service_Name}:${TAG} ."
     }
 }
 def docker_image_push()
@@ -64,8 +66,8 @@ def docker_image_push()
                   sh "sudo docker login -u nagendra464 -p ${docker-hub}"
       }
             
-            sh " sudo docker tag ${params.Service_Name} nagendra464/${params.Service_Name}:v1"
-            sh " sudo docker push nagendra464/${params.Service_Name}:v1"
+            sh " sudo docker tag ${params.Service_Name} nagendra464/${params.Service_Name}:${TAG}"
+            sh " sudo docker push nagendra464/${params.Service_Name}:${TAG}"
             
       }
 } 
