@@ -2,7 +2,7 @@ import groovy.json.JsonOutput
 import groovy.transform.Field
 import groovy.json.JsonSlurper
 
-node ('BuildJava-MS') 
+node ('Build-Server') 
 {
 
       parameters 
