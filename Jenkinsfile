@@ -13,7 +13,7 @@ node ('Build-Server')
     }
     
 
-    
+ }
      
       
         if ("${BRANCH_NAME}" == 'master')
@@ -69,4 +69,4 @@ def docker_image_push()
             
       }
 } 
-}
+
