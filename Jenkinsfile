@@ -5,8 +5,9 @@ currentBuild.displayName = "Micro-services-#"+currentBuild.number
 node ('Build-Server') 
 
 {
-    environment {
-    Docker_Tag = getDockerTag()
+   environment{
+      TAG = "${BUILD_ID}"
+    
 }
       parameters 
     {
@@ -67,14 +68,11 @@ def docker_image_push()
             sh " sudo docker login -u nagendra464 -p ${docker}"
       }
             
-            sh " sudo docker tag ${params.Service_Name} nagendra464/${params.Service_Name}:${Docker_Tag}"
-            sh " sudo docker push nagendra464/${params.Service_Name}:${Docker_tag}"
+            sh " sudo docker tag ${params.Service_Name} nagendra464/${params.Service_Name}:${TAG}"
+          sh " sudo docker push nagendra464/${params.Service_Name}:${TAG}"
             
       }
 }
-def getDockerTag(){
-    def tag = sh script: 'git rev-prase HEAD', returnStdout: true
-    return tag
-}
+
 
 
