@@ -69,6 +69,6 @@ def docker_image_push()
             
       }
 }
-} 
+
 
 
