@@ -60,11 +60,11 @@ def docker_image_push()
 {
       stage('image pushing')
       withCredentials([string(credentialsId: 'dockerlogin', variable: 'docker')]) {
-            sh " sudo docker login -u nagendra464 -p ${docker}
+            sh " sudo docker login -u nagendra464 -p ${docker}"
 }
             
-            sh " sudo docker tag ${params.Service_Name} nagendra464/${params.Service_Name}:${TAG}"
-            sh " sudo docker push nagendra464/${params.Service_Name}:${TAG}"
+            sh " sudo docker tag ${params.Service_Name} nagendra464/${params.Service_Name}:v1"
+            sh " sudo docker push nagendra464/${params.Service_Name}:v1"
             
       }
 } 
