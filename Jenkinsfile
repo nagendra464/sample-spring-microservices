@@ -3,8 +3,11 @@ import groovy.transform.Field
 import groovy.json.JsonSlurper
 currentBuild.displayName = "Micro-services-#"+currentBuild.number
 node ('Build-Server') 
-{
 
+{
+    environment {
+    Docker_Tag = getDockerTag()
+}
       parameters 
     {
            string(name: 'Service_Name', defaultValue: 'account-service', description: 'Which service needs to deploy')
@@ -64,11 +67,14 @@ def docker_image_push()
             sh " sudo docker login -u nagendra464 -p ${docker}"
       }
             
-            sh " sudo docker tag ${params.Service_Name} nagendra464/${params.Service_Name}:v1"
-            sh " sudo docker push nagendra464/${params.Service_Name}:v1"
+            sh " sudo docker tag ${params.Service_Name} nagendra464/${params.Service_Name}:${Docker_Tag}"
+            sh " sudo docker push nagendra464/${params.Service_Name}:${Docker_tag}"
             
       }
 }
-
+def getDockerTag(){
+    def tag = sh script: 'git rev-prase HEAD', returnStdout: true
+    return tag
+}
 
 
