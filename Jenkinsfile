@@ -1,7 +1,7 @@
 import groovy.json.JsonOutput
 import groovy.transform.Field
 import groovy.json.JsonSlurper
-
+currentBuild.displayName = "Micro-services-#"+currentBuild.number
 node ('Build-Server') 
 {
 
@@ -61,7 +61,7 @@ def docker_image_push()
       stage('image pushing')
       {
             withCredentials([string(credentialsId: 'docker-hub', variable: 'docker-hub')]) {
-                  sh "sudo docker login -u nagendra464 -p ${docker-hub}"
+                  sh "sudo docker login -u nagendra464 -p "${docker-hub}""
       }
             
             sh " sudo docker tag ${params.Service_Name} nagendra464/${params.Service_Name}:${TAG}"
